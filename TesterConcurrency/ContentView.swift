@@ -13,13 +13,10 @@ struct ContentView: View {
     
     var body: some View {
        VStack(spacing: 20) {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            
            
            Button(action: { handleButtonTap()}) {
-               Text("Call Func with Task Block")
+               Text("Call @concurrent async Func ")
                    .padding()
                    .background(Color.blue)
                    .foregroundColor(.white)
@@ -27,8 +24,8 @@ struct ContentView: View {
            }
            
            
-           Button(action: { getScores()}) {
-               Text("Call Utilities")
+           Button(action: { handleButtonTap2()}) {
+               Text("Call nonisolated async Func")
                    .padding()
                    .background(Color.blue)
                    .foregroundColor(.white)
@@ -36,7 +33,7 @@ struct ContentView: View {
                    .frame(maxWidth: .infinity)
            }
            
-           
+           Spacer()
         
         } // vstack
         .padding()
@@ -45,19 +42,18 @@ struct ContentView: View {
     
     
     
-
+    /// This will call a function marked **@CONCURRENT **
     func handleButtonTap()  {
         Task {
            _ =  await Utilities.performBackgroundWork()
-           //  print(ConcurrencyContext.capture())
         }
     }
     
     
     
 
-    
-    func getScores()  {
+    /// This will call a function marked **NONISOLATED **
+    func handleButtonTap2()  {
         Task {
             _ = await Utilities.getGameScores()
         }

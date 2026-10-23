@@ -7,14 +7,13 @@
 
 import Foundation
 
-
 public struct Utilities {
     
     private init() {}
     
-    
-   
-    nonisolated public static func getGameScores() async -> String {
+    /// marking a function **nonisolated ** means this runs on context of caller
+    nonisolated
+    public static func getGameScores() async -> String {
         try? await Task.sleep(nanoseconds: 2_000_000_000)
        // MainActor.assertIsolated()
         print(ConcurrencyContext.capture())
@@ -22,63 +21,27 @@ public struct Utilities {
     }
     
     
-    // Non-isolated async functions are guaranteed to run off the MainActor
-    @concurrent public static func performBackgroundWork() async {
+    /// **@concurrent** guarantees to run on BACKGROUND
+    @concurrent
+    public static func performBackgroundWork() async {
         try? await Task.sleep(nanoseconds: 2_000_000_000)
          print(" \(ConcurrencyContext.capture())")
     }
     
-    
-    public static func getExecutionContext() -> String {
-        let isolationName = #isolation.map { String(describing: $0) } ?? "nonisolated"
-        return isolationName
-    }
-    
-  
-    
-    public static func logCurrentContext(message: String, callerIsolation: (any Actor)? = #isolation) {
-        if let actor = callerIsolation {
-            if actor === MainActor.shared {
-                print("📝 Log: \(message) executed on MainActor")
-            } else {
-                print("📝 Log: \(message) executed inside Background Actor: \(type(of: actor))")
-            }
-        } else {
-            print("📝 Log: \(message) executed in a non-isolated context (background thread pool)")
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
+   
 } // Utilities
 
 
 
 
 
-extension Thread {
-    
-    nonisolated
-    public static var currentThread: Thread {
-        return Thread.current
-    }
-    
-    nonisolated
-    public static var isMain: Bool {
-        return Thread.isMainThread
-    }
-    
-}
+
 
 
 //MARK: - Capture Context
 
-
- nonisolated public struct ConcurrencyContext: Sendable, CustomStringConvertible {
+ nonisolated
+ public struct ConcurrencyContext: Sendable, CustomStringConvertible {
     
     /// The memory address or description of the current actor (if captured via TaskLocals)
     public let actorContext: String
@@ -95,7 +58,6 @@ extension Thread {
           └─ Execution Pool:   \(executionPool)
         """
     }
-
     
     /// Captures the current execution and actor context
     
@@ -126,10 +88,35 @@ extension Thread {
 
 /// Helper to track custom actor boundaries since Swift doesn't expose
 /// the current arbitrary actor instance dynamically yet.
-nonisolated  public enum CurrentActorTracker {
+nonisolated
+public enum CurrentActorTracker {
     @TaskLocal static var value: String?
 }
 
 
 
 
+
+
+
+
+
+
+
+
+
+/*
+extension Thread {
+    
+    nonisolated
+    public static var currentThread: Thread {
+        return Thread.current
+    }
+    
+    nonisolated
+    public static var isMain: Bool {
+        return Thread.isMainThread
+    }
+    
+}
+*/
