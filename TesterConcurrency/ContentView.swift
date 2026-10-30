@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    //let util = Utilit()
+    let myActor = MyNetworkActor()
     
     var body: some View {
        VStack(spacing: 20) {
@@ -32,6 +32,17 @@ struct ContentView: View {
                    .cornerRadius(8)
                    .frame(maxWidth: .infinity)
            }
+           
+           
+           Button(action: { handleButtonTap3()}) {
+               Text("Call Global ACTOR async Func")
+                   .padding()
+                   .background(Color.blue)
+                   .foregroundColor(.white)
+                   .cornerRadius(8)
+                   .frame(maxWidth: .infinity)
+           }
+           
            
            Spacer()
         
@@ -60,6 +71,15 @@ struct ContentView: View {
     }
     
     
+    
+    
+    /// This will call a function in a Global Actor
+    /// I am assuming it wil run on BACKGround
+    func handleButtonTap3()  {
+        Task {
+            _ = await myActor.getElectionDetails()
+        }
+    }
     
 } // ContentView
 
