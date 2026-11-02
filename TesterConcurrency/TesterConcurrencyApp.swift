@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct TesterConcurrencyApp: App {
+    
+    let myActor = MyNetworkActor()
+    let myDBActor = MyDatabaseActor()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(myActor: myActor, myDBActor: myDBActor)
         }
     }
 }

@@ -9,8 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let myActor = MyNetworkActor()
-    let myDBActor = MyDatabaseActor()
+    //@State private var myActor = MyNetworkActor()
+    //@State private var myDBActor = MyDatabaseActor()
+    
+    let myActor: MyNetworkActor
+    let myDBActor: MyDatabaseActor
+    
+    
     
     var body: some View {
        VStack(spacing: 20) {
@@ -132,5 +137,5 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView()
+    ContentView(myActor: MyNetworkActor(), myDBActor: MyDatabaseActor())
 }
