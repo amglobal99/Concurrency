@@ -10,13 +10,14 @@ import SwiftUI
 struct ContentView: View {
     
     let myActor = MyNetworkActor()
+    let myDBActor = MyDatabaseActor()
     
     var body: some View {
        VStack(spacing: 20) {
             
            
            Button(action: { handleButtonTap()}) {
-               Text("Call @concurrent async Func ")
+               Text("1.  @concurrent async Func ")
                    .padding()
                    .background(Color.blue)
                    .foregroundColor(.white)
@@ -25,7 +26,7 @@ struct ContentView: View {
            
            
            Button(action: { handleButtonTap2()}) {
-               Text("Call nonisolated async Func")
+               Text("2. Main Actor")
                    .padding()
                    .background(Color.blue)
                    .foregroundColor(.white)
@@ -35,7 +36,7 @@ struct ContentView: View {
            
            
            Button(action: { handleButtonTap3()}) {
-               Text("Call Global ACTOR async Func")
+               Text("3. NETWORK Actor")
                    .padding()
                    .background(Color.blue)
                    .foregroundColor(.white)
@@ -44,7 +45,16 @@ struct ContentView: View {
            }
            
            Button(action: { handleButtonTap4()}) {
-               Text("Call same Global ACTOR async Func")
+               Text("4.NETWORK Actor")
+                   .padding()
+                   .background(Color.blue)
+                   .foregroundColor(.white)
+                   .cornerRadius(8)
+                   .frame(maxWidth: .infinity)
+           }
+           
+           Button(action: { handleButtonTap5()}) {
+               Text("5. Database Actor")
                    .padding()
                    .background(Color.blue)
                    .foregroundColor(.white)
@@ -83,7 +93,7 @@ struct ContentView: View {
     
     
     /// This will call a function in a Global Actor
-    /// I am assuming it wil run on BACKGround
+    /// I am assuming it will run on BACKGround
     func handleButtonTap3()  {
         Task {
             _ = await myActor.performTask()
@@ -98,6 +108,14 @@ struct ContentView: View {
     }
     
     
+    /// call an ASYNC function on DatabaseActor
+    func handleButtonTap5()  {
+        Task {
+            _ = await myDBActor.performDatabaseTask()
+        }
+    }
+    
+
     
 } // ContentView
 
