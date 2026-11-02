@@ -93,30 +93,3 @@ public enum CurrentActorTracker {
     @TaskLocal static var value: String?
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-extension Thread {
-    
-    nonisolated
-    public static var currentThread: Thread {
-        return Thread.current
-    }
-    
-    nonisolated
-    public static var isMain: Bool {
-        return Thread.isMainThread
-    }
-    
-}
-*/

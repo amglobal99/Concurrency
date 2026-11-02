@@ -43,6 +43,15 @@ struct ContentView: View {
                    .frame(maxWidth: .infinity)
            }
            
+           Button(action: { handleButtonTap4()}) {
+               Text("Call same Global ACTOR async Func")
+                   .padding()
+                   .background(Color.blue)
+                   .foregroundColor(.white)
+                   .cornerRadius(8)
+                   .frame(maxWidth: .infinity)
+           }
+           
            
            Spacer()
         
@@ -77,9 +86,18 @@ struct ContentView: View {
     /// I am assuming it wil run on BACKGround
     func handleButtonTap3()  {
         Task {
-            _ = await myActor.getElectionDetails()
+            _ = await myActor.performTask()
         }
     }
+    
+    
+    func handleButtonTap4()  {
+        Task {
+            _ = await myActor.performTask()
+        }
+    }
+    
+    
     
 } // ContentView
 

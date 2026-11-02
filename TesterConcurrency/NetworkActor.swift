@@ -18,9 +18,22 @@ actor NetworkActor {
 @NetworkActor
 class MyNetworkActor {
     
+    let name = "MyNetworkActor"
+    
+    
+    
+    func performTask()  async {
+        // Bind the name at the top-level task entry point of the actor
+         await CurrentActorTracker.$value.withValue(self.name) {
+             await getElectionDetails()
+        }
+    }
+    
+    
+    
     func getElectionDetails() async {
         do {
-            try await Task.sleep(for: .seconds(2))
+            try await Task.sleep(for: .seconds(4))
         } catch {
             // Handle cancellation if the task is cancelled while sleeping
             print("Sleep was interrupted: \(error)")
@@ -31,5 +44,6 @@ class MyNetworkActor {
         print("Fetched election details successfully.")
         print(ConcurrencyContext.capture())
     }
+    
     
 }
