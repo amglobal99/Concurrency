@@ -1,0 +1,29 @@
+# Xcode
+# ========================
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# User-specific settings (prevents window layout and breakpoint conflicts)
+# ========================
+xcuserdata/
+
+# Swift Package Manager
+# ========================
+.build/
+.swiftpm/
+# Un-comment the line below if you want to cache your dependencies in git
+# Packages/
+
+# CocoaPods (if applicable)
+# ========================
+# Un-comment the line below if you prefer not to check in your Pods directory
+# Pods/
+
+# macOS system files
+# ========================
+.DS_Store
+Files.dat
